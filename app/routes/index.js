@@ -15,6 +15,11 @@ module.exports = function (app, passport) {
 		.get(function (req, res) {
 			res.sendFile(path + '/public/index.html');
 		});
+		
+	app.route('/:timestamp')
+		.get(function (req, res) {
+			res.json({});
+		});
 
 	/*app.route('/login')
 		.get(function (req, res) {
