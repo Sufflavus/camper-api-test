@@ -2,6 +2,7 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var TimeHandler = require(path + '/app/controllers/timeHandler.server.js');
 
 module.exports = function (app, passport) {
 
@@ -10,6 +11,7 @@ module.exports = function (app, passport) {
 	}
 
 	var clickHandler = new ClickHandler();
+	var timeHandler = new TimeHandler();
 
 	app.route('/')
 		.get(function (req, res) {
@@ -23,27 +25,7 @@ module.exports = function (app, passport) {
 		});
 		
 	app.route('/:timestamp')
-		.get(function (req, res) {
-			var timestamp = req.params.timestamp;
-			
-			var date = new Date(timestamp*1000) || Date.parse(timestamp);
-			
-			console.log(new Date(timestamp*1000))
-			
-			if(!date) {
-				res.json(null);
-				return;
-			}
-			
-			console.log(date)
-			var unix = Math.round(date.getTime()/1000);
-			var antural = date.toDateString();
-			
-			res.json({ 
-				"unix": unix, 
-				"natural": antural
-			});
-		});
+		.get(timeHandler.getTime);
 
 	/*app.route('/login')
 		.get(function (req, res) {
