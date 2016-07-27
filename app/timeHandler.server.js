@@ -3,11 +3,11 @@
 function TimeHandler () {
 
 	this.getTime = function (req, res) {
-		var timestamp = req.params.timestamp;
+		var timestamp = decodeURIComponent(req.params.timestamp);
 			
 		var date = new Date(timestamp*1000) || Date.parse(timestamp);
 		
-		console.log(new Date(timestamp*1000))
+		console.log(timestamp)
 		
 		if(!date) {
 			res.json(null);
